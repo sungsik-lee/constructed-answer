@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>로그인</title>
-  <link rel="stylesheet" href="src/style.css" />
+  <link rel="stylesheet" href="src/index.css" />
   <script type="module" src="src/index.js" defer></script>
 </head>
 <body>
@@ -21,6 +21,53 @@
     <button id="signup-btn">회원가입</button>
     <button id="login-btn">로그인</button>
     <p id="message"></p>
+  </div>
+
+  <!-- 회원가입 모달 -->
+  <div id="signup-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <button class="close-btn" id="close-signup">&times;</button>
+      <h2>회원가입 추가 정보 입력</h2>
+
+      <label for="signup-email">이메일</label>
+      <input type="email" id="signup-email" placeholder="이메일 입력" />
+
+      <label for="signup-password">비밀번호</label>
+      <input type="password" id="signup-password" placeholder="비밀번호 입력 (6자 이상)" />
+
+      <label for="school-level">학교급</label>
+      <select id="school-level">
+        <option value="">선택하세요</option>
+        <option value="elementary">초등학교</option>
+        <option value="middle">중학교</option>
+        <option value="high">고등학교</option>
+      </select>
+
+      <div class="short-inputs-row">
+        <div class="short-input-group">
+          <label for="grade">학년</label>
+          <input type="number" id="grade" min="1" max="12" placeholder="학년 입력" />
+        </div>
+        <div class="short-input-group">
+          <label for="age">나이</label>
+          <input type="number" id="age" min="1" max="100" placeholder="나이 입력" />
+        </div>
+        <div class="short-input-group">
+          <label for="name">이름</label>
+          <input type="text" id="name" placeholder="이름 입력" />
+        </div>
+      </div>
+
+      <label>성별</label>
+      <div class="gender-select">
+        <label><input type="radio" name="gender" value="male" checked /> 남성</label>
+        <label><input type="radio" name="gender" value="female" /> 여성</label>
+        <label><input type="radio" name="gender" value="other" /> 기타</label>
+      </div>
+
+      <button id="confirm-signup-btn">회원가입 완료</button>
+      <p id="signup-message"></p>
+    </div>
   </div>
 </body>
 </html>
