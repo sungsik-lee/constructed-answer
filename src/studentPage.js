@@ -4,64 +4,95 @@ import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { firebaseConfig } from "../firebaseConfig.js";
 
-// Firebase 초기화
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-// DOMContentLoaded 안에서 모든 요소를 안전하게 참조
-document.addEventListener("DOMContentLoaded", () => {
-  const unitSelect = document.getElementById("unit-select");
-  const startBtn = document.getElementById("start-evaluation");
-  const logoutBtn = document.getElementById("logout-btn");
+const nameEl = document.getElementById("user-name");
+const emailEl = document.getElementById("user-email");
+const levelEl = document.getElementById("user-level");
+const gradeEl = document.getElementById("user-grade");
 
-  // 초기 상태에서 버튼 비활성화
-  startBtn.disabled = true;
-  startBtn.style.backgroundColor = "#ccc";
-  startBtn.style.color = "#666";
-  startBtn.style.cursor = "not-allowed";
+const genderEl = document.getElementById("user-gender");
+const ageEl = document.getElementById("user-age");
+const logoutBtn = document.getElementById("logout-btn");
+const examSelect = document.getElementById("exam-select");
+const startBtn = document.getElementById("start-evaluation");
 
-  // 로그인 상태 확인
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      alert("로그인이 필요합니다.");
-      window.location.href = "index.html";
-    }
-  });
+// 영어 → 한글 매핑 테이블
+const genderMap = {
+  male: "남성",
+  female: "여성"
+};
 
-  // 단원 선택 시 버튼 활성화
-  unitSelect.addEventListener("change", () => {
-    if (unitSelect.value) {
-      startBtn.disabled = false;
-      startBtn.style.backgroundColor = "#007bff";
-      startBtn.style.color = "white";
-      startBtn.style.cursor = "pointer";
-    } else {
-      startBtn.disabled = true;
-      startBtn.style.backgroundColor = "#ccc";
-      startBtn.style.color = "#666";
-      startBtn.style.cursor = "not-allowed";
-    }
-  });
+const schoolLevelMap = {
+  elementary: "초등학교",
+  middle: "중학교",
+  high: "고등학교"
+};
 
-  // 평가 시작 버튼 클릭 시 평가 페이지로 이동
-  startBtn.addEventListener("click", () => {
-    const selectedUnit = unitSelect.value;
-    if (!selectedUnit) {
-      alert("단원을 선택해주세요.");
-      return;
-    }
-    window.location.href = `evaluationPage.html?unit=${selectedUnit}`;
-  });
 
-  // 로그아웃 버튼 처리
-  logoutBtn.addEventListener("click", async () => {
-    try {
-      await signOut(auth);
-      window.location.href = "index.html";
-    } catch (error) {
-      console.error("로그아웃 실패:", error);
-    }
-  });
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    alert("로그인이 필요합니다.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  const userDoc = await getDoc(doc(db, "users", user.uid));
+  if (userDoc.exists()) {
+    const data = userDoc.data();
+    nameEl.textContent = data.name || "-";
+    emailEl.textContent = data.email || "-";
+    levelEl.textContent = schoolLevelMap[data.schoolLevel] || "-";
+    gradeEl.textContent = data.grade || "-";
+    genderEl.textContent = genderMap[data.gender] || "-";
+    ageEl.textContent = data.age || "-";
+  }
 });
+
+logoutBtn.addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    window.location.href = "index.html";
+  } catch (err) {
+    console.error("로그아웃 실패:", err);
+  }
+});
+
+// 시험 목록 불러오기
+async function loadExams() {
+  const examsSnapshot = await getDocs(collection(db, "exams"));
+  examsSnapshot.forEach(docSnap => {
+    const exam = docSnap.data();
+    const option = document.createElement("option");
+    option.value = docSnap.id;
+    option.textContent = exam.name || "(이름 없음)";
+    examSelect.appendChild(option);
+  });
+}
+
+examSelect.addEventListener("change", () => {
+  startBtn.disabled = !examSelect.value;
+});
+
+startBtn.addEventListener("click", () => {
+  const examId = examSelect.value;
+  if (!examId) {
+    alert("검사를 선택하세요.");
+    return;
+  }
+  window.location.href = `evaluationPage.html?examId=${examId}`;
+});
+
+loadExams();
