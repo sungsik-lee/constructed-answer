@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>로그인</title>
+  <link rel="stylesheet" href="src/style.css" />
+  <script type="module" src="src/index.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h1>로그인 / 회원가입</h1>
+    <label for="email">이메일</label>
+    <input type="email" id="email" placeholder="이메일 입력" />
+    <label for="password">비밀번호</label>
+    <input type="password" id="password" placeholder="비밀번호 입력 (6자 이상)" />
+    <div class="role-select">
+      <label><input type="radio" name="role" value="student" checked /> 학생</label>
+      <label><input type="radio" name="role" value="teacher" /> 교사</label>
+    </div>
+    <button id="signup-btn">회원가입</button>
+    <button id="login-btn">로그인</button>
+    <p id="message"></p>
+  </div>
+</body>
+</html>

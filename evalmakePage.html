@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>검사 제작 페이지</title>
+  <link rel="stylesheet" href="src/style.css" />
+  <script type="module" src="src/evalmakePage.js" defer></script>
+  <style>
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: #868e96;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+
+    .back-btn:hover {
+      background-color: #495057;
+    }
+  </style>
+</head>
+<body>
+  <button class="back-btn" onclick="history.back()">← 뒤로가기</button>
+
+  <div class="container">
+    <h1>검사 제작 페이지</h1>
+
+    <div class="input-group">
+      <label for="exam-name">검사 이름:</label>
+      <input type="text" id="exam-name" placeholder="검사 이름 입력" />
+      <button id="create-exam-btn">검사 생성</button>
+      <button id="cancel-edit-btn" style="display:none;">수정 취소</button>
+    </div>
+
+    <div class="unit-section">
+      <h2>단원 목록</h2>
+      <div id="unit-list"></div>
+    </div>
+
+    <div class="question-section">
+      <h2>문항 목록</h2>
+      <div id="question-list"></div>
+    </div>
+
+    <div class="selected-section">
+      <h2>선택한 문항</h2>
+      <ul id="selected-questions"></ul>
+    </div>
+
+    <div class="exam-list-section">
+      <h2>기존 검사 목록</h2>
+      <div id="exam-list"></div>
+    </div>
+  </div>
+</body>
+</html>

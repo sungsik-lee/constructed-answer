@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>문항 평가</title>
+  <link rel="stylesheet" href="src/style.css" />
+
+  <style>
+    #answer-text {
+      width: 100%;
+      height: 150px;
+      padding: 8px;
+      font-size: 14px;
+      box-sizing: border-box;
+      margin-top: 10px;
+      resize: vertical;
+    }
+    .question-btn {
+      margin: 5px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    .question-btn.active {
+      background-color: #007bff;
+      color: white;
+    }
+    #question-display {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>문항 평가</h1>
+    <div id="question-buttons"></div>
+
+    <div id="question-display" style="display:none;">
+      <p id="question-text"></p>
+      <textarea id="answer-text" placeholder="답안을 입력하세요"></textarea>
+      <button id="submit-answer" disabled>답안 제출</button>
+      <p id="submit-message"></p>
+       <button id="finish-btn" style="
+    margin-top: 10px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+  ">검사 완료 후 돌아가기</button>
+    </div>
+
+    <button id="logout-btn" class="logout">로그아웃</button>
+    <button id="back-btn" style="
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    ">← 단원 선택으로 돌아가기</button>
+  </div>
+
+
+  <!-- Firebase, your JS -->
+  <script type="module" src="src/evaluationPage.js"></script>
+</body>
+</html>
