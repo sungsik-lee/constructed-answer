@@ -25,6 +25,10 @@ const gradeEl = document.getElementById("user-grade");
 const genderEl = document.getElementById("user-gender");
 const ageEl = document.getElementById("user-age");
 const logoutBtn = document.getElementById("logout-btn");
+const backBtn = document.getElementById("back-btn");
+const userInfoBtn = document.getElementById("user-info-btn");
+const userInfoModal = document.getElementById("user-info-modal");
+const closeUserInfoBtn = document.getElementById("close-user-info");
 const examSelect = document.getElementById("exam-select");
 const startBtn = document.getElementById("start-evaluation");
 
@@ -61,7 +65,39 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+// 뒤로가기 버튼
+backBtn.addEventListener("click", () => {
+  window.history.back();
+});
+
+// 내 정보 버튼
+userInfoBtn.addEventListener("click", () => {
+  userInfoModal.style.display = "block";
+});
+
+// 모달 닫기 버튼
+closeUserInfoBtn.addEventListener("click", () => {
+  userInfoModal.style.display = "none";
+});
+
+// 모달 외부 클릭시 닫기
+window.addEventListener("click", (event) => {
+  if (event.target === userInfoModal) {
+    userInfoModal.style.display = "none";
+  }
+});
+
+// 내 정보 모달 ESC 닫기
+window.addEventListener("keydown", (e) => {
+  const userInfoModal = document.getElementById("user-info-modal");
+  if (e.key === "Escape" && userInfoModal && userInfoModal.style.display === "block") {
+    userInfoModal.style.display = "none";
+  }
+});
+
 logoutBtn.addEventListener("click", async () => {
+  const confirmed = window.confirm("정말 로그아웃 하시겠습니까?");
+  if (!confirmed) return;
   try {
     await signOut(auth);
     window.location.href = "index.html";

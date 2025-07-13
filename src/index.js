@@ -148,7 +148,20 @@ document.getElementById("login-btn").addEventListener("click", async () => {
       return;
     }
 
-    window.location.href = userData.role === "student" ? "studentPage.html" : "teacherPage.html";
+    switch(userData.role) {
+      case "admin":
+        window.location.href = "adminPage.html";
+        break;
+      case "teacher":
+        window.location.href = "teacherPage.html";
+        break;
+      case "student":
+        window.location.href = "studentPage.html";
+        break;
+      default:
+        messageEl.textContent = "알 수 없는 사용자 역할입니다.";
+        return;
+    }
   } catch (err) {
     console.error("로그인 실패:", err);
     messageEl.textContent = "로그인 실패: " + err.message;

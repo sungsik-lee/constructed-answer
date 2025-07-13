@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>학생 결과 확인</title>
+  <link rel="stylesheet" href="src/resultPage.css" />
+  <script type="module" src="src/resultPage.js" defer></script>
+</head>
+<body>
+  <!-- 네비게이션 바 -->
+  <nav class="navbar">
+    <div class="left-buttons">
+      <button id="back-btn" class="nav-btn">← 뒤로가기</button>
+    </div>
+    <div class="logo">
+      <div class="logo-icon">✏️</div>
+      <div class="logo-text">
+        <span class="logo-title">EduNote</span>
+        <span class="logo-subtitle">서술형 답안 수집</span>
+      </div>
+    </div>
+    <div class="right-buttons">
+      <button id="user-info-btn" class="nav-btn">내 정보</button>
+      <button id="logout-btn" class="nav-btn logout">로그아웃</button>
+    </div>
+  </nav>
+
+  <!-- 메인 컨테이너 -->
+  <div class="container result-flex">
+    <div class="sidebar">
+      <button id="tab-question" class="tab-btn active">문항별</button>
+      <button id="tab-student" class="tab-btn">학생별</button>
+    </div>
+    <div class="result-main">
+      <div id="result-content">
+        <!-- 문항별 탭 영역 -->
+        <div id="question-tab-content">
+          <div class="unit-list-box">
+            <h3 class="box-title">단원 선택</h3>
+            <select id="unit-select">
+              <option value="">-- 단원 선택 --</option>
+              <option value="number">수와 연산</option>
+              <option value="relation">변화와 관계</option>
+              <option value="measure">도형과 측정</option>
+              <option value="probability">자료와 가능성</option>
+            </select>
+          </div>
+          <div class="question-list-box">
+            <h3 class="box-title">문항 선택</h3>
+            <div id="question-list"></div>
+          </div>
+          <div id="question-box">
+            <h3 class="box-title">문항</h3>
+            <div id="question-content"></div>
+          </div>
+          <div id="answer-list" class="answer-list-box">
+            <h3 class="box-title">답안 목록</h3>
+            <ul id="answer-items"></ul>
+          </div>
+        </div>
+
+        <!-- 학생별 탭 영역 -->
+        <div id="student-tab-content" style="display:none;">
+          <div class="student-select-box">
+            <h3 class="box-title">학생 선택</h3>
+            <div id="student-select-row">
+              <select id="student-select"><option value="">-- 학생 선택 --</option></select>
+            </div>
+          </div>
+          <div class="student-exam-list-box exam-list-box">
+            <h3 class="box-title">검사 목록</h3>
+            <div id="student-exam-list"></div>
+          </div>
+          <div class="student-question-list-box question-list-box">
+            <h3 class="box-title">문항 선택</h3>
+            <div id="student-question-list"></div>
+          </div>
+          <div id="student-question-box" class="question-box">
+            <h3 class="box-title">문항</h3>
+            <div id="student-question-content"></div>
+          </div>
+          <div id="student-answer-list" class="answer-list-box">
+            <h3 class="box-title">답안 목록</h3>
+            <ul id="student-answer-items"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 사용자 정보 모달 -->
+  <div id="user-info-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" id="close-user-info">&times;</button>
+      <h2>내 정보</h2>
+      <div class="user-info">
+        <p><strong>이름:</strong> <span id="user-name">-</span></p>
+        <p><strong>이메일:</strong> <span id="user-email">-</span></p>
+        <p><strong>역할:</strong> <span id="user-role">교사</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 로그아웃 모달 -->
+  <div id="logout-modal" class="modal">
+    <div class="modal-content finish-modal-content">
+      <h2>정말 로그아웃 하시겠습니까?</h2>
+      <div class="finish-modal-actions">
+        <button id="logout-confirm" class="modal-btn confirm">예</button>
+        <button id="logout-cancel" class="modal-btn cancel">아니오</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

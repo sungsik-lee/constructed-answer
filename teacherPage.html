@@ -4,20 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>교사용 페이지</title>
-  <link rel="stylesheet" href="src/style.css" />
+  <link rel="stylesheet" href="src/teacherPage.css" />
   <script type="module" src="src/teacherPage.js" defer></script>
 </head>
 <body>
+  <!-- 네비게이션 바 -->
+  <nav class="navbar">
+    <div class="left-buttons">
+      <button id="back-btn" class="nav-btn">← 뒤로가기</button>
+    </div>
+    <div class="logo">
+      <div class="logo-icon">✏️</div>
+      <div class="logo-text">
+        <span class="logo-title">EduNote</span>
+        <span class="logo-subtitle">서술형 답안 수집</span>
+      </div>
+    </div>
+    <div class="right-buttons">
+      <button id="user-info-btn" class="nav-btn">내 정보</button>
+      <button id="logout-btn" class="nav-btn logout">로그아웃</button>
+    </div>
+  </nav>
+
   <div class="container">
     <h1>교사용 페이지</h1>
-    <p>환영합니다, 선생님!</p>
+    <div class="teacher-actions">
+      <a href="resultPage.html" class="nav-btn">학생 결과 확인</a>
+    </div>
+  </div>
 
-    <!-- 문항 등록 버튼 추가 -->
-    <a href="adminPage.html" id="admin-link">문항 등록(Admin)</a>
-    <a href="evalmakePage.html" id="evalmake-link">검사 제작</a>
-
-    <button id="logout-btn" class="logout">로그아웃</button>
-
+  <!-- 사용자 정보 모달 -->
+  <div id="user-info-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" id="close-user-info">&times;</button>
+      <h2>내 정보</h2>
+      <div class="user-info">
+        <p><strong>이름:</strong> <span id="user-name">-</span></p>
+        <p><strong>이메일:</strong> <span id="user-email">-</span></p>
+        <p><strong>역할:</strong> <span id="user-role">교사</span></p>
+      </div>
+    </div>
   </div>
 </body>
 </html>

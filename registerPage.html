@@ -2,10 +2,8 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>검사 제작 페이지</title>
-  <link rel="stylesheet" href="src/evalmakePage.css" />
-  <script type="module" src="src/evalmakePage.js" defer></script>
+  <title>문항 등록</title>
+  <link rel="stylesheet" href="src/registerPage.css" />
 </head>
 <body>
   <!-- 네비게이션 바 -->
@@ -27,34 +25,21 @@
   </nav>
 
   <div class="container">
-    <h1>검사 제작 페이지</h1>
-
-    <div class="input-group">
-      <label for="exam-name">검사 이름:</label>
-      <input type="text" id="exam-name" placeholder="검사 이름 입력" />
-      <button id="create-exam-btn">검사 생성</button>
-      <button id="cancel-edit-btn" style="display:none;">수정 취소</button>
-    </div>
-
-    <div class="unit-section">
-      <h2>단원 목록</h2>
-      <div id="unit-list"></div>
-    </div>
-
-    <div class="question-section">
-      <h2>문항 목록</h2>
-      <div id="question-list"></div>
-    </div>
-
-    <div class="selected-section">
-      <h2>선택한 문항</h2>
-      <ul id="selected-questions"></ul>
-    </div>
-
-    <div class="exam-list-section">
-      <h2>기존 검사 목록</h2>
-      <div id="exam-list"></div>
-    </div>
+    <h1>문항 등록</h1>
+    <label>내용영역 선택</label>
+    <select id="unit-select">
+      <option value="">-- 선택 --</option>
+      <option value="number">수와 연산</option>
+      <option value="relation">변화와 관계</option>
+      <option value="measure">도형과 측정</option>
+      <option value="probability">자료와 가능성</option>
+    </select>
+    <label>문항 텍스트</label>
+    <textarea id="question-text"></textarea>
+    <label>문항 이미지 (선택)</label>
+    <input type="file" id="question-image" accept="image/*" />
+    <button id="save-question">문항 저장</button>
+    <div id="save-message"></div>
   </div>
 
   <!-- 사용자 정보 모달 -->
@@ -65,9 +50,11 @@
       <div class="user-info">
         <p><strong>이름:</strong> <span id="user-name">-</span></p>
         <p><strong>이메일:</strong> <span id="user-email">-</span></p>
-        <p><strong>역할:</strong> <span id="user-role">교사</span></p>
+        <p><strong>역할:</strong> <span id="user-role">관리자</span></p>
       </div>
     </div>
   </div>
+
+  <script type="module" src="src/registerPage.js"></script>
 </body>
-</html>
+</html> 

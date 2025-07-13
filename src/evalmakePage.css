@@ -1,10 +1,10 @@
-/* 전체 폰트 및 배경 */
+/* 세련되고 현대적인 UI 스타일 */
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Noto Sans KR', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Arial, sans-serif;
-  background-color: #f2f4f8;
-  color: #333;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  background-color: #f1f3f5;
+  color: #212529;
 }
 
 /* 네비게이션 바 */
@@ -92,7 +92,21 @@ body {
   background-color: #c82333;
 }
 
-/* 중앙 컨테이너 */
+.page-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.nav-btn.active {
+  background: #e9ecef;
+  color: #28a745;
+  cursor: default;
+  pointer-events: none;
+  font-weight: 700;
+  border: 2px solid #28a745;
+}
+
 .container {
   max-width: 800px;
   margin: 100px auto 40px;
@@ -117,11 +131,6 @@ body {
   display: block;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 h1, h1::after {
   font-size: 2rem;
   color: #28a745;
@@ -136,76 +145,133 @@ h1, h1::after {
 }
 
 h2 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  color: #333;
+  font-size: 1.6rem;
+  color: #495057;
+  margin-bottom: 16px;
   border-bottom: 2px solid #e9ecef;
-  padding-bottom: 8px;
+  padding-bottom: 6px;
 }
 
-/* 입력 필드 및 셀렉트 */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select,
-textarea {
-  width: 100%;
+.input-group label {
+  font-weight: 700; /* 볼드 처리 */
+  align-self: center; /* 수직 정렬 */
+  min-width: 90px; /* 너비 고정해서 줄맞춤 */
+}
+
+
+.input-group input {
+  flex: 1;
+  padding: 12px 16px;
   font-size: 1rem;
-  padding: 12px 14px;
-  margin-top: 6px;
-  margin-bottom: 20px;
+  border: 1.5px solid #ced4da;
   border-radius: 10px;
-  border: 1.8px solid #ccc;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
-  font-family: inherit;
+  transition: border-color 0.2s;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
+.input-group input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+  border-color: #5c7cfa;
+  box-shadow: 0 0 0 3px rgba(92, 124, 250, 0.2);
 }
 
-/* 셀렉트 스타일 */
-select {
-  appearance: none;
-  background: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 12px center;
-  background-size: 12px;
-  padding-right: 36px;
-}
-
-/* 버튼 공통 */
 button {
-  font-size: 1rem;
-  padding: 12px 24px;
+  background-color: #5c7cfa;
+  color: white;
+  font-weight: 600;
+  padding: 10px 18px;
+  font-size: 0.95rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-  font-weight: 600;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
 button:hover {
+  background-color: #3b5bdb;
   transform: scale(1.02);
 }
 
-button:disabled {
-  background-color: #a5d6a7;
-  cursor: not-allowed;
-  transform: none;
+#cancel-edit-btn {
+  background-color: #868e96;
 }
 
-#start-evaluation {
-  background-color: #28a745;
+#cancel-edit-btn:hover {
+  background-color: #495057;
+}
+
+.unit-section, .question-section, .selected-section, .exam-list-section {
+  margin-bottom: 40px;
+}
+
+#unit-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.unit-btn {
+  padding: 8px 16px;
+  background-color: #dee2e6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.unit-btn.selected {
+  background-color: #5c7cfa;
   color: white;
-  margin-top: 10px;
+  box-shadow: 0 0 0 2px rgba(92, 124, 250, 0.4);
 }
 
-#start-evaluation:hover:not(:disabled) {
-  background-color: #218838;
+.unit-btn:active {
+  transform: scale(0.98);
+}
+
+.question-item {
+  padding: 10px 14px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+#selected-questions {
+  list-style-type: decimal;
+  padding-left: 20px;
+  color: #495057;
+}
+
+.exam-item {
+  background-color: #f1f3f5;
+  border: 1px solid #dee2e6;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.exam-item button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.edit-btn {
+  background-color: #51cf66;
+}
+
+.edit-btn:hover {
+  background-color: #2f9e44;
+}
+
+.delete-btn {
+  background-color: #ff6b6b;
+}
+
+.delete-btn:hover {
+  background-color: #c92a2a;
 }
 
 /* 모달 스타일 */
@@ -259,19 +325,19 @@ button:disabled {
   width: 80px;
 }
 
-/* 반응형 */
 @media (max-width: 768px) {
   .container {
-    margin: 100px 16px 20px;
-    padding: 24px;
+    padding: 20px;
+    margin: 100px 20px 20px;
   }
-  
+  .input-group {
+    flex-direction: column;
+  }
   .navbar {
     padding: 12px 16px;
   }
-  
   .nav-btn {
     padding: 6px 12px;
     font-size: 0.8rem;
   }
-}
+} 

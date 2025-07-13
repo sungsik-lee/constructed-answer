@@ -22,6 +22,10 @@ const questionImageInput = document.getElementById("question-image");
 const saveBtn = document.getElementById("save-question");
 const message = document.getElementById("save-message");
 const backBtn = document.getElementById("back-btn");
+const userInfoBtn = document.getElementById("user-info-btn");
+const userInfoModal = document.getElementById("user-info-modal");
+const closeUserInfoBtn = document.getElementById("close-user-info");
+const logoutBtn = document.getElementById("logout-btn");
 
 saveBtn.addEventListener("click", async () => {
   const unit = unitSelect.value.trim();
@@ -82,6 +86,47 @@ saveBtn.addEventListener("click", async () => {
   }
 });
 
+// 뒤로가기 버튼
 backBtn.addEventListener("click", () => {
-  window.location.href = "teacherPage.html"; // 뒤로 갈 페이지로 변경 가능
+  window.history.back();
 });
+
+// 내 정보 버튼
+userInfoBtn.addEventListener("click", () => {
+  userInfoModal.style.display = "block";
+});
+
+// 모달 닫기 버튼
+closeUserInfoBtn.addEventListener("click", () => {
+  userInfoModal.style.display = "none";
+});
+
+// 모달 외부 클릭시 닫기
+window.addEventListener("click", (event) => {
+  if (event.target === userInfoModal) {
+    userInfoModal.style.display = "none";
+  }
+});
+
+// 내 정보 모달 ESC 닫기
+window.addEventListener("keydown", (e) => {
+  const userInfoModal = document.getElementById("user-info-modal");
+  if (e.key === "Escape" && userInfoModal && userInfoModal.style.display === "block") {
+    userInfoModal.style.display = "none";
+  }
+});
+
+// 로그아웃 버튼
+logoutBtn.addEventListener("click", async () => {
+  const confirmed = window.confirm("정말 로그아웃 하시겠습니까?");
+  if (!confirmed) return;
+  try {
+    const { signOut } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+    const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+    const auth = getAuth(app);
+    await signOut(auth);
+    window.location.href = "index.html";
+  } catch (error) {
+    console.error("로그아웃 실패:", error);
+  }
+}); 

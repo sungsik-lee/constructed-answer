@@ -2,52 +2,90 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>문항 등록</title>
-  <link rel="stylesheet" href="src/style.css" />
-  <style>
-      #back-btn {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background-color: #868e96;
-      color: white;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-    }
-  </style>
+  <title>관리자 메인</title>
+  <link rel="stylesheet" href="src/registerPage.css" />
 </head>
 <body>
-  <!-- 뒤로가기 버튼 -->
-  <button id="back-btn">← 뒤로가기</button>
-
+  <nav class="navbar">
+    <div class="left-buttons">
+      <button id="back-btn" class="nav-btn">← 뒤로가기</button>
+    </div>
+    <div class="logo">
+      <div class="logo-icon">✏️</div>
+      <div class="logo-text">
+        <span class="logo-title">EduNote</span>
+        <span class="logo-subtitle">서술형 답안 수집</span>
+      </div>
+    </div>
+    <div class="right-buttons">
+      <button id="user-info-btn" class="nav-btn">내 정보</button>
+      <button id="logout-btn" class="nav-btn logout">로그아웃</button>
+    </div>
+  </nav>
   <div class="container">
-    <h1>문항 등록</h1>
-
-    <label>내용영역 선택</label>
-    <select id="unit-select">
-      <option value="">-- 선택 --</option>
-      <option value="number">수와 연산</option>
-      <option value="relation">변화와 관계</option>
-      <option value="measure">도형과 측정</option>
-      <option value="probability">자료와 가능성</option>
-
-    </select>
-
-
-    <label>문항 텍스트</label>
-    <textarea id="question-text"></textarea>
-
-    <label>문항 이미지 (선택)</label>
-    <input type="file" id="question-image" accept="image/*" />
-
-    <button id="save-question">문항 저장</button>
-    <div id="save-message"></div>
+    <h1>관리자 페이지</h1>
+    <div class="admin-actions" style="display:flex; flex-direction:row; gap:24px; margin:48px 0 0 0; align-items:center; justify-content:center;">
+      <a href="registerPage.html" class="nav-btn green-btn" style="width:200px;font-size:1.2rem;">문항 등록</a>
+      <a href="evalmakePage.html" class="nav-btn green-btn" style="width:200px;font-size:1.2rem;">검사 제작</a>
+    </div>
+    <div id="admin-guide" style="margin:40px 0;text-align:center;color:#888;font-size:1.1rem;">원하는 기능을 선택하세요.</div>
   </div>
-
-  <script type="module" src="src/adminPage.js"></script>
+  <div id="user-info-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" id="close-user-info">&times;</button>
+      <h2>내 정보</h2>
+      <div class="user-info">
+        <p><strong>이름:</strong> <span id="user-name">-</span></p>
+        <p><strong>이메일:</strong> <span id="user-email">-</span></p>
+        <p><strong>역할:</strong> <span id="user-role">관리자</span></p>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    // 내 정보 모달 동작
+    const userInfoBtn = document.getElementById("user-info-btn");
+    const userInfoModal = document.getElementById("user-info-modal");
+    const closeUserInfoBtn = document.getElementById("close-user-info");
+    if (userInfoBtn && userInfoModal) {
+      userInfoBtn.addEventListener("click", () => {
+        userInfoModal.style.display = "block";
+      });
+    }
+    if (closeUserInfoBtn && userInfoModal) {
+      closeUserInfoBtn.addEventListener("click", () => {
+        userInfoModal.style.display = "none";
+      });
+    }
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && userInfoModal && userInfoModal.style.display === "block") {
+        userInfoModal.style.display = "none";
+      }
+    });
+    window.addEventListener("click", (event) => {
+      if (event.target === userInfoModal) {
+        userInfoModal.style.display = "none";
+      }
+    });
+    // 로그아웃 버튼 동작
+    const logoutBtn = document.getElementById("logout-btn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", async () => {
+        const confirmed = window.confirm("정말 로그아웃 하시겠습니까?");
+        if (!confirmed) return;
+        try {
+          const { signOut } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+          const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+          const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+          const { firebaseConfig } = await import("./firebaseConfig.js");
+          const app = initializeApp(firebaseConfig);
+          const auth = getAuth(app);
+          await signOut(auth);
+          window.location.href = "index.html";
+        } catch (error) {
+          alert("로그아웃 실패: " + error.message);
+        }
+      });
+    }
+  </script>
 </body>
-</html>
+</html> 

@@ -21,6 +21,11 @@ const examList = document.getElementById("exam-list");
 const unitList = document.getElementById("unit-list");
 const questionList = document.getElementById("question-list");
 const selectedQuestions = document.getElementById("selected-questions");
+const backBtn = document.getElementById("back-btn");
+const userInfoBtn = document.getElementById("user-info-btn");
+const userInfoModal = document.getElementById("user-info-modal");
+const closeUserInfoBtn = document.getElementById("close-user-info");
+const logoutBtn = document.getElementById("logout-btn");
 
 let allQuestions = [];
 let units = [];
@@ -213,6 +218,47 @@ async function loadExamForEdit(id) {
     }
   }
 }
+
+// 네비게이션 이벤트 리스너
+backBtn.addEventListener("click", () => {
+  window.history.back();
+});
+
+userInfoBtn.addEventListener("click", () => {
+  userInfoModal.style.display = "block";
+});
+
+closeUserInfoBtn.addEventListener("click", () => {
+  userInfoModal.style.display = "none";
+});
+
+window.addEventListener("click", (event) => {
+  if (event.target === userInfoModal) {
+    userInfoModal.style.display = "none";
+  }
+});
+
+// 내 정보 모달 ESC 닫기
+window.addEventListener("keydown", (e) => {
+  const userInfoModal = document.getElementById("user-info-modal");
+  if (e.key === "Escape" && userInfoModal && userInfoModal.style.display === "block") {
+    userInfoModal.style.display = "none";
+  }
+});
+
+logoutBtn.addEventListener("click", async () => {
+  const confirmed = window.confirm("정말 로그아웃 하시겠습니까?");
+  if (!confirmed) return;
+  try {
+    const { signOut } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+    const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+    const auth = getAuth(app);
+    await signOut(auth);
+    window.location.href = "index.html";
+  } catch (error) {
+    console.error("로그아웃 실패:", error);
+  }
+});
 
 loadAllQuestions();
 loadExams();

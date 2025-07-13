@@ -8,28 +8,47 @@
   <script type="module" src="src/studentPage.js" defer></script>
 </head>
 <body>
+  <!-- 네비게이션 바 -->
+  <nav class="navbar">
+    <div class="left-buttons">
+      <button id="back-btn" class="nav-btn">← 뒤로가기</button>
+    </div>
+    <div class="logo">
+      <div class="logo-icon">✏️</div>
+      <div class="logo-text">
+        <span class="logo-title">EduNote</span>
+        <span class="logo-subtitle">서술형 답안 수집</span>
+      </div>
+    </div>
+    <div class="right-buttons">
+      <button id="user-info-btn" class="nav-btn">내 정보</button>
+      <button id="logout-btn" class="nav-btn logout">로그아웃</button>
+    </div>
+  </nav>
+
   <div class="container">
-    <!-- 왼쪽 학생 정보 영역 -->
-    <aside class="sidebar">
+    <h1>검사 선택</h1>
+    <label for="exam-select">검사를 선택하세요:</label>
+    <select id="exam-select" aria-label="검사 선택">
+      <option value="" selected disabled>-- 검사 선택 --</option>
+    </select>
+    <button id="start-evaluation" disabled>평가 시작하기</button>
+  </div>
+
+  <!-- 사용자 정보 모달 -->
+  <div id="user-info-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" id="close-user-info">&times;</button>
       <h2>내 정보</h2>
+      <div class="user-info">
       <p><strong>이름:</strong> <span id="user-name">-</span></p>
       <p><strong>이메일:</strong> <span id="user-email">-</span></p>
       <p><strong>학교급:</strong> <span id="user-level">-</span></p>
       <p><strong>학년:</strong> <span id="user-grade">-</span></p>
       <p><strong>성별:</strong> <span id="user-gender">-</span></p>
       <p><strong>나이:</strong> <span id="user-age">-</span></p>
-      <button id="logout-btn" class="logout">로그아웃</button>
-    </aside>
-
-    <!-- 오른쪽 평가 선택 영역 -->
-    <main class="main">
-      <h1>검사 선택</h1>
-      <label for="exam-select">검사를 선택하세요:</label>
-      <select id="exam-select" aria-label="검사 선택">
-        <option value="" selected disabled>-- 검사 선택 --</option>
-      </select>
-      <button id="start-evaluation" disabled>평가 시작하기</button>
-    </main>
+      </div>
+    </div>
   </div>
 </body>
 </html>

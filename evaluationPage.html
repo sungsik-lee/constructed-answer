@@ -4,38 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>문항 평가</title>
-  <link rel="stylesheet" href="src/style.css" />
-
-  <style>
-    #answer-text {
-      width: 100%;
-      height: 150px;
-      padding: 8px;
-      font-size: 14px;
-      box-sizing: border-box;
-      margin-top: 10px;
-      resize: vertical;
-    }
-    .question-btn {
-      margin: 5px;
-      padding: 8px 12px;
-      cursor: pointer;
-    }
-    .question-btn.active {
-      background-color: #007bff;
-      color: white;
-    }
-    #question-display {
-      margin-top: 20px;
-      border: 1px solid #ccc;
-      padding: 15px;
-      background: #f9f9f9;
-    }
-  </style>
+  <link rel="stylesheet" href="src/evaluationPage.css" />
 </head>
 <body>
+  <!-- 네비게이션 바 -->
+  <nav class="navbar">
+    <div class="left-buttons">
+      <button id="back-btn" class="nav-btn">← 뒤로가기</button>
+    </div>
+    <div class="logo">
+      <div class="logo-icon">✏️</div>
+      <div class="logo-text">
+        <span class="logo-title">EduNote</span>
+        <span class="logo-subtitle">서술형 답안 수집</span>
+      </div>
+    </div>
+    <div class="right-buttons">
+      <button id="user-info-btn" class="nav-btn">내 정보</button>
+      <button id="logout-btn" class="nav-btn logout">로그아웃</button>
+    </div>
+  </nav>
+
   <div class="container">
-    <h1>문항 평가</h1>
+    <div class="exam-title-label" id="exam-title-label">
+      <span class="exam-icon">📄</span>
+      <span id="exam-title-text"></span>
+    </div>
     <div id="question-buttons"></div>
 
     <div id="question-display" style="display:none;">
@@ -43,24 +37,34 @@
       <textarea id="answer-text" placeholder="답안을 입력하세요"></textarea>
       <button id="submit-answer" disabled>답안 제출</button>
       <p id="submit-message"></p>
-       <button id="finish-btn" style="
-    margin-top: 10px;
-    padding: 6px 12px;
-    font-size: 14px;
-    cursor: pointer;
-  ">검사 완료 후 돌아가기</button>
+    </div>
+  </div>
+
+  <!-- 사용자 정보 모달 -->
+  <div id="user-info-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" id="close-user-info">&times;</button>
+      <h2>내 정보</h2>
+      <div class="user-info">
+        <p><strong>이름:</strong> <span id="user-name">-</span></p>
+        <p><strong>이메일:</strong> <span id="user-email">-</span></p>
+        <p><strong>학교급:</strong> <span id="user-level">-</span></p>
+        <p><strong>학년:</strong> <span id="user-grade">-</span></p>
+        <p><strong>성별:</strong> <span id="user-gender">-</span></p>
+        <p><strong>나이:</strong> <span id="user-age">-</span></p>
+      </div>
+    </div>
     </div>
 
-    <button id="logout-btn" class="logout">로그아웃</button>
-    <button id="back-btn" style="
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      z-index: 1000;
-      padding: 6px 12px;
-      font-size: 14px;
-      cursor: pointer;
-    ">← 단원 선택으로 돌아가기</button>
+  <!-- 검사 종료 커스텀 모달 -->
+  <div id="finish-modal" class="modal">
+    <div class="modal-content finish-modal-content">
+      <h2>검사를 종료하시겠습니까?</h2>
+      <div class="finish-modal-actions">
+        <button id="finish-confirm" class="modal-btn confirm">예</button>
+        <button id="finish-cancel" class="modal-btn cancel">아니오</button>
+      </div>
+    </div>
   </div>
 
 
